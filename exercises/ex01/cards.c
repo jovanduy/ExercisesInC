@@ -60,8 +60,7 @@ int main() {
 	while (card_name[0] != 'X') {
 		puts("Enter the card name: ");
 		scanf("%2s", card_name);
-		int val = get_value(card_name);
-		count = update_count(val, count);
+		count = update_count(get_value(card_name), count);
 		printf("Current count: %i\n", count);
 	}
 	return 0;
