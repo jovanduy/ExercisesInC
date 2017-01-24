@@ -11,6 +11,8 @@ Some of the first things we discussed after team formation included our individu
 
 Next, we discussed administrative details: what things do we need to setup for this project. Once someone mentioned we need to decide on a scrum master, Daniel volunteered and we were all fine with that decision.
 
+As discussed below, we have not yet reached the point of actual coding; we are still in the research phase. We are all researching in parallel, but once we begin coding, we will assign parts based on individual interests that have already been expressed.
+
 ### Moving forward
 After the first day of class, we decided we should all read Ch 1 of HFC to introduce us to C and keep up with the class readings. We also decided to do come up with possible project ideas.
 
