@@ -32,9 +32,4 @@
 *.dSYM/
 *.su
 
-# Executable without extension..
-*
-!*.*
-
-*.s
 .DS_Store
