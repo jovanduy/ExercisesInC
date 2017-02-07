@@ -1,5 +1,5 @@
 void make_num_huge(int num) {
-	*num = 100;
+	num = 100;
 }
 
 int main() {
