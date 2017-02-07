@@ -35,7 +35,7 @@ We chose these readings because they gave us an introduction to C (especially ch
 As explained above, we decided we needed the foundational C knowledge and the baseline resources provided to us by HFC more than we needed TOS at such an early stage in our project. During Sprint 2, we plan to read more of TOS to catch up on the assigned readings and to learn what we should understand from TOS.
 
 ## Exam Question
-See [reflection1question.c](https://github.com/jovanduy/ExercisesInC/blob/master/reflections/reflection1question.c) and [reflection1solution.c](https://github.com/jovanduy/ExercisesInC/blob/master/reflections/reflection1solution.c). The question is that reflection1question.c should print out a huge number (100) by calling make_num_huge(). However, there are some problems! Identify them and write out an updated version of the code so that everything works as expected.
+See [reflection1question.c](https://github.com/jovanduy/ExercisesInC/blob/master/reflections/reflection1question.c) and [reflection1solution.c](https://github.com/jovanduy/ExercisesInC/blob/master/reflections/reflection1solution.c). The question is that reflection1question.c should print out a huge number (100) by first calling make_num_huge() to update the variable `num` and then printing the updated `num`. However, there are some problems! Identify them and write out an updated version of the code so that everything works as expected.
 
 Problems are:
 - stdio.h is not included so printf() doesn't work
