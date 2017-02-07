@@ -35,4 +35,4 @@ We chose these readings because they gave us an introduction to C (especially ch
 As explained above, we decided we needed the foundational C knowledge and the baseline resources provided to us by HFC more than we needed TOS at such an early stage in our project. During Sprint 2, we plan to read more of TOS to catch up on the assigned readings and to learn what we should understand from TOS.
 
 ## Exam Question
-See reflection1question.c and reflection1solution.c
+See [reflection1question.c](https://github.com/jovanduy/ExercisesInC/blob/master/reflections/reflection1question.c) and [reflection1solution.c](https://github.com/jovanduy/ExercisesInC/blob/master/reflections/reflection1solution.c)
