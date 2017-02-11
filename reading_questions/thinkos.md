@@ -46,7 +46,7 @@ Different computers can have different architectures. `-S` generates the assembl
 6) If you spell a variable name wrong, or if you spell a function name wrong,
 the error messages you get might look very different.  Why?
 
-This is because these errors are detected during different parts of the compilation process. Spelling a variable name wrong results in an undeclared identifier, while spelling a function name wrong says there is no such declared function. 
+This is because these errors are detected during different parts of the compilation process. Spelling a variable name wrong results in an undeclared identifier, while spelling a function name wrong says there is no such declared function.
 
 7) What is a segmentation fault?
 
@@ -60,13 +60,23 @@ A segmentation fault is a runtime error caused by attempting to read or write to
 
 1) Give a real-world example of virtualization (ideally not one of the ones in the book).
 
+Amazon virtually sells a ton of products. However, when you look at the seller of an item on Amazon, it is not always actually sold by Amazon. Yet, knowing from whom the product is sold is not important to the Amazon user; to them, Amazon pretty much sells everything since they just have to go to Amazon.com to search for the items (as opposed to searching for all of the actual sellers themselves).
+
 2) What is the difference between a program and a process?
+
+A process is the object that represents a running program. A process is what isolates a running program, such as the text of the program, any data of the program, and the state of the program, from other programs. Processes are isolated from each other so that their programs do not conflict/interfere with one another.
 
 3) What is the primary purpose of the process abstraction?  What illusion does the process abstraction create?
 
+This abstraction makes it so programmers do not have to think about how all of the processes could interact with each other. Thus, programmers do not have to worry about two processes possibly conflicting with each other (such as trying to access the same memory) or about how to make two processes run simultaneously. To the programmer, each program acts as if it has its own memory, runs continuously as desired, and can never accidentally interfere with another program.
+
 4) What is the kernel?
 
+The kernel is a part of the operating system. It is responsible for creating threads and other core capabilities.
+
 5) What is a daemon?
+
+A daemon is a process that runs in the background and provides operating system services.
 
 
 ## Chapter 3
@@ -76,30 +86,51 @@ A segmentation fault is a runtime error caused by attempting to read or write to
 
 1) The Georgian alphabet has 33 letters.  How many bit are needed to specify a letter?
 
+6 bits. This is because log<sub>2</sub>33 = 5.04, which rounded up is 6.
+
 2) In the UTF-16 character encoding, the binary representation of a character can take up to 32 bits.  
 Ignoring the details of the encoding scheme, how many different characters can be represented?
 
+2<sup>32</sup> = 4,294,967,296 characters
+
 3) What is the difference between "memory" and "storage" as defined in Think OS?
+
+"Memory" refers to (usually) volatile RAM where most of a running process's data is held. "Storage" refers to HDDs and SSDs that are non-volatile and are used to store the files that a process reads or writes.
 
 4) What is the difference between a GiB and a GB?  What is the percentage difference in their sizes?
 
+A GiB is a gibibyte, which is 2<sup>30</sup> bytes. Memory is normally measured in GiB. A GB is a gigabyte, which is is 10<sup>9</sup> bytes. The percent difference is 1.78%.
+
 5) How does the virtual memory system help isolate processes from each other?
+
+When a program reads or writes to memory, it writes to virtual memory. These virtual addresses are then translated to physical addresses. No two processes translate from virtual to physical memory in the same way, so even if they try writing to the same virtual address, the virtual addresses will be translated to different physical addresses. Thus, processes cannot access data from other processes.
 
 6) Why do you think the stack and the heap are usually located at opposite ends of the address space?
 
+This is so they can both have a lot of room to grow. As they expand, the space between them decreases, so they should be at opposite ends to allow for maximum space to expand.
+
 7) What Python data structure would you use to represent a sparse array?
 
+scipy.sparse... But actually, maybe a dictionary? It would be similar to an associative table, when keys are VA and values are PA.
+
 8) What is a context switch?
+
+A context switch is when the operating system interrupts a running process, saves its state, and then runs another process.
 
 In this directory, you should find a subdirectory named `aspace` that contains `aspace.c`.  Run it on your computer and compare your results to mine.
 
 1) Add a second call to `malloc` and check whether the heap on your system grows up (toward larger addresses).  
 
-2) Add a function that prints the address of a local variable, and check whether the stack grows down.  
+The heap grows up. The first pointer is at 0x7f9c7b403170 and the second at 0x7f9c7b4031f0 (the second is larger).
+
+2) Add a function that prints the address of a local variable, and check whether the stack grows down.
+
+The stack grows down. The first local variable is at 0x7fff5b430a38 and the second at 0x7fff5b4309fc (second is smaller).
 
 3) Choose a random number between 1 and 32, and allocate two chunks with that size.  
 How much space is there between them?  Hint: Google knows how to subtract hexadecimal numbers.
 
+There is 0x10 (16) between them if I choose 11. But if I choose 31 there is 0x20 (32) between them.
 
 ## Chapter 4
 
