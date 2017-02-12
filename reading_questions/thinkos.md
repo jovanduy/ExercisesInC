@@ -140,19 +140,35 @@ There is 0x10 (16) between them if I choose 11. But if I choose 31 there is 0x20
 1) What abstractions do file systems provide?  Give an example of something that is logically
 true about files systems but not true of their implementations.
 
+File systems make it so programmers do not have to worry about how the blocks of storage are organized or how SSDs can become unreliable. File systems instead allow the information of a file to be saved under a file name and in bytes, not blocks.
+
+Under a file system, you can write to a file byte by byte. However, the file is actually written block by block. Thus, in a file system, you might think you are changing the file many times (if you intend to keep rewriting the same bytes for some reason), but in actuality the file is not actually saved to storage after each change; rather, it is saved to a buffer that is not translated to actual persistent storage until there is a full block or until the file is closed.
+
 2) What information do you imagine is stored in an `OpenFileTableEntry`?
 
+An `OpenFileTableEntry` probably stores the file's name, whether it is opened for reading, writing, or both, and where you are in the file (the file position).
+
 3) What are some of the ways operating systems deal with the relatively slow performance of persistent storage?
+
+The operating system usually switches to another process while waiting for data from storage. The processor can also load more blocks (block transfers), the operating system can load blocks before the processor actually requests them (prefetching), the OS can save any written data in memory to a buffer before actually saving it to the disk so there is only one write as opposed to multiple (buffering), and the operating system can keep a block in memory that was previously requested so it does not need to be fetched from the disk when requested again (caching).
 
 4) Suppose your program writes a file and prints a message indicating that it is done writing.  
 Then a power cut crashes your computer.  After you restore power and reboot the computer, you find that the
 file you wrote is not there.  What happened?
 
+The program thought that the file had been saved, but in actuality, the operating system just cached the data in memory. Before the operating system had a chance to write it to the disk (which can take awhile), the power was cut!
+
 5) Can you think of one advantage of a File Allocation Table over a UNIX inode?  Or an advantage of a inode over a FAT?
+
+A FAT doesn't really have a max file size, whereas in inode the maximum file size is 8 TiB. However, since FAT works basically like a linked list, if you wanted to get to some data at the end of a larger file, getting there would be really slow as you would have to go through all of the previous clusters. With inode, you would only have to go through a maximum of three indirection blocks to find what you are looking for.
 
 6) What is overhead?  What is fragmentation?
 
+Overhead is the space that the data structures used by the block allocation system use up. Fragmentation is the unused space when some blocks are unused or are only partially used.
+
 7) Why is the "everything is a file" principle a good idea?  Why might it be a bad idea?
+
+It is good because programmers can learn how to do multiple things (use pipes, sockets, etc) without much extra work if they already know how to write and read to/from files; the API for all of these is the same. It also makes a lot of code useable in multiple situations. However, this might cause programmers to lose sight of how the computer actually works, which might be a problem in debugging.
 
 If you would like to learn more about file systems, a good next step is to learn about journaling file systems.  
 Start with [this Wikipedia article](https://en.wikipedia.org/wiki/Journaling_file_system), then
