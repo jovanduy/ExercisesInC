@@ -14,7 +14,7 @@ We also found that we are not following some typical programming standards; in p
 I have also found that I am making good progress to my own learning goals. We did a lot more coding during Sprint 2 than in Sprint 1, and as such I am now much more comfortable with my understanding of C. I also understand more about networking.
 
 ## Head First C
-During this sprint my team decided to focus on reading Think OS. In Sprint 1 we only read chapters from HFC in order to advance our understanding of sockets and allow us to be able to actually implement our project. Thus, we dedicated Sprint 2 to the Think OS chapters that were part of the assigned readings since we were more ahead with HFC.
+During this sprint my team decided to focus on reading Think OS. In Sprint 1 we only read chapters from HFC in order to advance our understanding of sockets and allow us to be able to actually implement our project. Thus, we dedicated Sprint 2 to the Think OS chapters that were part of the assigned readings since we were more ahead with HFC. Furthermore, the chapters we did cover in TOS, besides being part of the assigned class readings, helped us with our understanding of our project because they provided information about how C works and how files are read from and written to (which is very applicable to our torrent project!).
 
 ## Think OS
 During Sprint 2, my team assigned the following readings and completed these exercises:
