@@ -187,6 +187,11 @@ it to a 16-bit number and accidentally apply sign extension?
 2) Write a C expression that computes the two's complement of 12 using the XOR bitwise operator.
 Try it out and confirm that the result is interpreted as -12.
 
+```
+num = (12 ^ -1) + 1;
+```
+`num` does indeed come out to -12.
+
 3) Can you guess why IEEE floating-point uses biased integers to represent the exponent rather than a
 sign bit or two's complement?
 
@@ -197,7 +202,13 @@ IEEE floating-point.  What would you get if you accidentally interpreted this va
 As a challenge, you can make a faster version by reading the string 32 or 64 bits at a time, rather than one
 character at a time.  This optimization is made easier if the length of the string is a multiple of 4 or 8 bytes.
 
-
+```
+void change_case(char *str, int len) {
+  for (int i = 0; i < len; i++) {
+    string[i] ^= 32;
+  }
+}
+```
 
 ## Chapter 6
 
