@@ -217,9 +217,13 @@ void change_case(char *str, int len) {
 
 1) Which memory management functions would you expect to take constant time?  Which ones take time proportional to the size of the allocated chunk?
 
+`calloc` is proportional to the size of the chunk. `free` is probably constant. `malloc` also probably does not depend on the size of the chunk. `realloc` can depend on chunk size. 
+
 2) For each of the following memory errors, give an example of something that might go wrong:
 
 a) Reading from unallocated memory.
+
+Something random is stored at that location and is interpreted as something (for example, a string might be interpreted as a float that is a super large number). Or if you're lucky, you might get a seg fault at runtime if this error is detected.
 
 b) Writing to unallocated memory.
 
@@ -229,6 +233,7 @@ d) Writing to a freed chunk.
 
 e) Failing to free a chunk that is no longer needed.
 
+You can run out of memory (either all of the physical memory is used up, the process's usable virtual memory is used up, etc) and the next time you call `malloc`, it will return `NULL`.
 
 3) Run
 
