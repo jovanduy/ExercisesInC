@@ -1,5 +1,9 @@
 /*
- * Implementation of UNIX's tee command
+ * Implementation of UNIX's tee command:
+ * write what is read from stdin to stdout
+ * and any files specified as command line args
+ *
+ * author: @jovanduy
  *
  * Exercise questions:
  * 3) Googling things and HFC Ch. 3 were both pretty helpful.
