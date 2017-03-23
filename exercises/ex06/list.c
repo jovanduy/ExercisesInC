@@ -66,6 +66,7 @@ int pop(Node **list) {
  */
 void push(Node **list, int val) {
     // FILL THIS IN!
+    *list = make_node(val, *list);
 }
 
 
@@ -80,6 +81,22 @@ void push(Node **list, int val) {
  */
 int remove_by_value(Node **list, int val) {
     // FILL THIS IN!
+    Node *prev = *list;
+    Node *current = prev->next;
+
+    if (prev->val == val) {
+    	*list = current;
+    	return 1;
+    }
+
+    while (current != NULL) {
+    	if (current->val == val) {
+			prev->next = current->next;
+			return 1;
+    	}
+    	prev = current;
+    	current = current->next;
+    }
     return 0;
 }
 
