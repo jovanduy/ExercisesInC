@@ -3,6 +3,8 @@
  * write what is read from stdin to stdout
  * and any files specified as command line args
  *
+ * Usage (if compiled into file tee): ./tee <file_name>
+ *
  * author: @jovanduy
  *
  * Exercise questions:
@@ -25,7 +27,9 @@
  *    in the Lecture 07 on the class website actually did not
  *    use too many functions I had never seen. Furthermore,
  *    they used a bunch of structs, which I'm not sure how to
- *    use properly quite yet.
+ *    use properly quite yet (note: my implementation was
+ *    written in very early Februrary, which was before we
+ *    learned about structs).
  */
 
 #include <stdlib.h>
@@ -38,9 +42,8 @@
  * int argc: number of args
  * char *argv[]: the args themselves
  * *append: store value if append flag is on
- * *int num_files: stores the number of files specified by the args
  */
-void process_args(int argc, char *argv[], int *append, int *num_files) {
+void process_args(int argc, char *argv[], int *append) {
 	char ch;
 	while ((ch = getopt(argc, argv, "a")) != EOF) {
 		switch(ch) {
@@ -52,31 +55,34 @@ void process_args(int argc, char *argv[], int *append, int *num_files) {
 				exit(-1);
 		}
 	}
-	*num_files = argc;
 }
 
 int main(int argc, char *argv[]) {
 	char buff[100];
 	int append = 0;
 	int num_files = 0;
-	FILE **fp;
 
 	// process the arguments and set argc and argv to skip over flags
-	process_args(argc, argv, &append, &num_files);
+	process_args(argc, argv, &append);
 	argc -= optind;
 	argv += optind;
+	num_files = argc;
 
 	// open all files
-	fp = malloc(sizeof(FILE *) * num_files);
-	for (int i = 0; i < argc; i++) {
+	FILE *fp[num_files];
+
+	for (int i = 0; i < num_files; i++) {
 		fp[i] = fopen(argv[i], append ? "a" : "w");
+		if (fp[i] == NULL) {
+			puts("error: could not open a file");
+		}
 	}
-	
-	while (scanf("%s/n", buff) != EOF) {
+
+	while (scanf("%s", buff) > 0) {
 		// write to all the files
-		for (int i = 0; i < argc; i++) {
-			if(fprintf(fp[i], "%s\n", buff) < 0) {
-				puts("error");
+		for (int i = 0; i < num_files; i++) {
+			if (fprintf(fp[i], "%s\n", buff) < 0) {
+				puts("error writing to a file");
 				return 1;
 			}
 		}
@@ -85,8 +91,9 @@ int main(int argc, char *argv[]) {
 	}
 
 	// close files
-	for (int i = 1; i < argc; i++) {
+	for (int i = 0; i < num_files; i++) {
 		fclose(fp[i]);
 	}
+
 	return 0;
 }
