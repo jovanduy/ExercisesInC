@@ -17,8 +17,8 @@ License: Creative Commons Attribution-ShareAlike 3.0
 typedef struct {
     enum Type {INT, STRING} type;
     union {
-	int i;
-	char *s;
+        int i;
+        char *s;
     };
 } Value;
 
@@ -179,8 +179,9 @@ int hash_hashable(Hashable *hashable)
  */
 int equal_int (void *ip, void *jp)
 {
-    // FILL THIS IN!
-    return 0;
+    int i1 = *(int *) ip;
+    int i2 = *(int *) jp;
+    return i1 == i2;
 }
 
 
@@ -193,8 +194,7 @@ int equal_int (void *ip, void *jp)
  */
 int equal_string (void *s1, void *s2)
 {
-    // FILL THIS IN!
-    return 0;
+    return !strcmp((char *)s1, (char*)s2);
 }
 
 
@@ -208,8 +208,7 @@ int equal_string (void *s1, void *s2)
  */
 int equal_hashable(Hashable *h1, Hashable *h2)
 {
-    // FILL THIS IN!
-    return 0;
+    return h1->equal(h1->key, h2->key);
 }
 
 
@@ -297,7 +296,13 @@ Node *prepend(Hashable *key, Value *value, Node *rest)
 /* Looks up a key and returns the corresponding value, or NULL */
 Value *list_lookup(Node *list, Hashable *key)
 {
-    // FILL THIS IN!
+
+    while (list != NULL) {
+        if (equal_hashable(list->key, key)) {
+            return list->value;
+        }
+        list = list->next;
+    }
     return NULL;
 }
 

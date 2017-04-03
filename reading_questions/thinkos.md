@@ -217,7 +217,7 @@ void change_case(char *str, int len) {
 
 1) Which memory management functions would you expect to take constant time?  Which ones take time proportional to the size of the allocated chunk?
 
-`calloc` is proportional to the size of the chunk. `free` is probably constant. `malloc` also probably does not depend on the size of the chunk. `realloc` can depend on chunk size. 
+`calloc` is proportional to the size of the chunk. `free` is probably constant. `malloc` also probably does not depend on the size of the chunk. `realloc` can depend on chunk size.
 
 2) For each of the following memory errors, give an example of something that might go wrong:
 
@@ -256,7 +256,11 @@ If you want to know more about how malloc works, read
 
 1) What happens if a program writes a new value into the program counter?
 
+Then the instruction corresponding to that new value will be the next instruction that is implemented.
+
 2) What is the fundamental problem caches are meant to solve?
+
+The "memory bottleneck": a lot (about half) of the instructions load or store data. A cache is supposed to decrease the time taken to load data.
 
 3) If cache access time is 1 ns and memory access time is 10 ns, what is the average
 access time of a program with hit rate 50%?  How about 90%?
@@ -289,11 +293,21 @@ If you can find the technical specifications for your computer, see if your infe
 
 1) What is the kernel's most basic task?
 
+The kernel's most basic task is handling interrupts.
+
 2) When an interrupt occurs, what part of the hardware state is saved by hardware?
+
+The program counter
 
 3) What is the difference between an interrupt and a context switch?
 
+An interrupt is a halt in the normal instruction cycle to allow the interrupt handler to run. If there is no context switch, after the interrupt has been handled and the hardware state before the interrupt has been restored, the original process that was running continues to run where it had left off. A context switch is when, instead of returning to the original process after the interrupt has been handled, a new process is chosen to run.
+
+An interrupt is a halt in the normal flow of instruction execution, while a context switch loads another process (a different set of instructions) to be executed.
+
 4) Give an example of an event that might cause a process to move from the blocked to the ready state.
+
+One possible event is a system call, such as a disk request, completing. Upon completion, there is an interrupt and the interrupt handler then changes the state of the process that called that system call from blocked to ready.
 
 5) Why might a scheduler want to give higher priority to an I/O bound process?
 
