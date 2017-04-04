@@ -347,15 +347,16 @@ void print_map(Map *map)
 /* Adds a key-value pair to a map. */
 void map_add(Map *map, Hashable *key, Value *value)
 {
-    // FILL THIS IN!
+    int index = key->hash(key->key) % map->n;
+    map->lists[index] = prepend(key, value, map->lists[index]);
 }
 
 
 /* Looks up a key and returns the corresponding value, or NULL. */
 Value *map_lookup(Map *map, Hashable *key)
 {
-    // FILL THIS IN!
-    return NULL;
+    int index = key->hash(key->key) % map->n;
+    return list_lookup(map->lists[index], key);
 }
 
 
