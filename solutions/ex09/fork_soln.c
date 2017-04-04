@@ -12,7 +12,7 @@ License: MIT License https://opensource.org/licenses/MIT
 #include <errno.h>
 #include <sys/time.h>
 #include <sys/types.h>
-#include <wait.h>
+#include <sys/wait.h>
 
 
 // errno is an external global variable that contains
@@ -40,6 +40,7 @@ void child_code(int i)
     printf("child shared_int is %d\n", shared_int);
     *int_pointer += 1;
     printf("child int_pointer %d\n", *int_pointer);
+    printf("child int_pointer address %p\n", int_pointer);
     exit(i);
 }
 
@@ -108,6 +109,7 @@ int main(int argc, char *argv[])
     
     printf("parent shared_int is %d\n", shared_int);
     printf("parent int_pointer %d\n", *int_pointer);
+    printf("parent int_pointer address %p\n", int_pointer);
     
     exit(0);
 }
