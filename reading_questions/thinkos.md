@@ -324,16 +324,27 @@ As you read Chapter 9, you should compile and run the example code.  By the natu
 
 1) Why does each thread have its own stack?
 
+Each thread has its own stack so that threads can call functions without interfering with each other and cannot access each other's local variables.
+
 2) What does the `gcc flag -lpthread` do?
+
+The `-l` option allows you to compile with the Pthread library in `gcc`.
 
 3) What does the argument of `pthread_exit` do?
 
+This argument is a value that is passed to the thread that joins with the thread.
+
 4) Normally the same thread that created a thread also waits to join it.  What happens if another thread tries to join a thread it did not create?
+
+You can do that, but in the common model the parent joins the child.
 
 5) What goes wrong if several threads try to increment a shared integer at the same time?
 
+There can be a synchronization error; they all read the same value before any thread has incremented it, and then they all increment it. Thus, instead of the value being incremented to a higher value by every thread, each thread just increments the original value, so the value actually only is incremented once.
+
 6) What does it mean to "lock a mutex"?
 
+Locking a mutex has the effect of barring all other threads until the mutex has been unlocked. A mutex is an object that guarantees mutual exclusion for a block of code, so after a thread locks a mutex, it can then run some code with the guarantee that other threads will not also be running the same code until the mutex has been unlocked (thus preventing synchronization errors) and those other threads can stop blocking.
 
 
 ## Chapter 10
