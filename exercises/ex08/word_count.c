@@ -11,7 +11,7 @@
 #include <glib.h>
 
 void iterator(gpointer key, gpointer value, gpointer user_data) {
-    printf(user_data, key, *(gint*)value);
+    printf(user_data, key, GPOINTER_TO_INT(value));
 }
 
 int main(int argc, char** argv) {
@@ -30,5 +30,5 @@ int main(int argc, char** argv) {
         word_count = GPOINTER_TO_INT(g_hash_table_lookup(hash, buff));
         g_hash_table_insert(hash, g_strdup(buff), GINT_TO_POINTER(word_count + 1));
     }
-    g_hash_table_foreach(hash, (GHFunc)iterator, "The count of %s is %d\n");
+    g_hash_table_foreach(hash, (GHFunc)iterator, "The count of %s is %i\n");
 }
