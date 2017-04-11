@@ -227,11 +227,15 @@ Something random is stored at that location and is interpreted as something (for
 
 b) Writing to unallocated memory.
 
+A long time might pass before this bad value is read, so it can be difficult to find the source of the problem. You can also mess up the data structures that are used to implement `malloc` and `free` by writing past the end of an allocated chunk of memory.
+
 c) Reading from a freed chunk.
 
 d) Writing to a freed chunk.
 
 e) Failing to free a chunk that is no longer needed.
+
+That is a memory leak, which can be fine in a small program, but in a larger program...
 
 You can run out of memory (either all of the physical memory is used up, the process's usable virtual memory is used up, etc) and the next time you call `malloc`, it will return `NULL`.
 
@@ -243,6 +247,8 @@ to see a list of processes sorted by RSS, which is "resident set size", the amou
 memory a process has.  Which processes are using the most memory?
 
 4) What's wrong with allocating a large number of small chunks?  What can you do to mitigate the problem?
+
+`malloc` also uses space at the beginning and end of the chunk to store information about the chunk that makes up `malloc`'s internal data structures. These data structures take up space, so mallocing a lot of small chunks is not space efficient because a lot of these data structures will also be created. Instead, you can allocate your small structures together in an array as one large structure.
 
 If you want to know more about how malloc works, read
 [Doug Lea's paper about dlmalloc](http://gee.cs.oswego.edu/dl/html/malloc.html)

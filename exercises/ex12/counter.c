@@ -21,6 +21,7 @@
  *  s: message to print
  *
  */
+int b = 100;
 void perror_exit (char *s)
 {
     perror (s);
@@ -155,6 +156,11 @@ void join_thread (pthread_t thread)
 void child_code (Shared *shared)
 {
     printf ("Starting child at counter %d\n", shared->counter);
+    int a = 1;
+    printf("%p\n", &a);
+    printf("%p\n", &b);
+    b += 10;
+    printf("%i", b);
 
     while (1) {
 	    if (shared->counter >= shared->end) {
@@ -164,7 +170,7 @@ void child_code (Shared *shared)
 	    shared->counter++;
 
 	    if (shared->counter % 100000 == 0) {
-	        printf ("%d\n", shared->counter);
+	        //printf ("%d\n", shared->counter);
 	    }
     }
 }

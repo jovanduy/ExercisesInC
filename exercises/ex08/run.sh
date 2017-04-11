@@ -1,0 +1,1 @@
+gcc -o word word_count.c -I/usr/local/Cellar/glib/2.52.0/include/glib-2.0 -I/usr/local/Cellar/glib/2.52.0/lib/glib-2.0/include -I/usr/local/opt/gettext/include -I/usr/local/Cellar/pcre/8.40/include -L/usr/local/Cellar/glib/2.52.0/lib -L/usr/local/opt/gettext/lib -lglib-2.0 -lintl && ./word great_expectations.txt

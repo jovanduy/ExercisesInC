@@ -128,6 +128,20 @@ void reverse(Node **list) {
     *list = prev;
 }
 
+void insert(Node **list, int index, int val) {
+    Node *curr = *list;
+    if (index == 0) {
+        *list = make_node(val, curr);
+        return;
+    }
+
+    Node *next = curr->next;
+    for (int i=1; i<index; i++) {
+        curr = next;
+        next = curr->next;
+    }
+    curr->next = make_node(val, next);
+}
 
 int main() {
     Node *head = make_node(1, NULL);
@@ -135,7 +149,11 @@ int main() {
     head->next->next = make_node(3, NULL);
     head->next->next->next = make_node(4, NULL);
 
-    Node **list = &head;
+        Node **list = &head;
+insert(list, 2, 20);
+    print_list(list);
+
+
     print_list(list);
 
     int retval = pop(list);
