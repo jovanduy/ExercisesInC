@@ -271,18 +271,30 @@ The "memory bottleneck": a lot (about half) of the instructions load or store da
 3) If cache access time is 1 ns and memory access time is 10 ns, what is the average
 access time of a program with hit rate 50%?  How about 90%?
 
+50%
+(.5 * 1ns) + (.5 * 10ns) = 5.5ns
+
+90%
+(.9 * 1ns) + (.1 * 10ns) = 1.9ns
+
 4) The book gives several examples of programming language features, like loops, that tend
 to improve locality in the access pattern of instructions and/or data.  Can you think of other examples?  
 Or counter-examples that might decrease locality?
 
+An example that might decrease spacial locality is a block of code with jumps or branches.
+
 5)  If you refactor a program to improve locality, would you say the program is "cache aware"?  Why not?
+
 
 6) See if you can estimate the cost of a memory cache by comparing the prices of two similar CPUs with
 different cache sizes.
 
+
 7) Why are cache policies generally more complex at the bottom of the memory hierarchy?
 
+
 8) Can you think of a strategy operating systems could use to avoid thrashing or recover when it occurs?
+
 
 Run the cache code on your laptop or another computer and see if you can infer the cache size and block size.  
 If you can find the technical specifications for your computer, see if your inferences are right.
@@ -360,21 +372,36 @@ Locking a mutex has the effect of barring all other threads until the mutex has 
 
 1) What does it mean to say that a data structure is thread safe?
 
+If a data structure is thread safe, multiple threads can access it at the same time.
+
 2) In the circular buffer implementation of a queue, why is the maximum number of elements in the queue `n-1`,
 if `n` is the size of the array?
+
+This is because after the `n`th element, the queue wraps back around to the 0th element. The check to see if the queue is empty is by comparing `queue->next_in` with `queue->next_out`. If the last element were the `n`th element, once all `n` elements were full, the queue would return that it is empty because both next_out and next_in will be from the 0th index. Thus, in order to avoid this problem, the maximum number of elements is `n-1`.
 
 3) If there is no mutex to protect the queue, give an example of a sequence of steps that could leave
 the queue in an inconsistent state.
 
 4) When a thread calls cond_wait, why does it have to unlock the mutex before blocking?
 
+If it did not unlock the mutex, no other thread could access the queue and therefore no items could be added/removed to/from the queue, meaning that the queue would always stay the same and thus the condition would never be met.
+
 5) When a thread returns from cond_wait, what do we know is definitely true?  What do we think is probably true?
+
+We know that the condition is true and that the mutex is locked (so this thread can safely access the queue).
+What we think that the condition is probably true.
 
 6) What happens if you signal a condition variable when there are no waiting threads?
 
+There is no effect.
+
 7) Do you have to lock the mutex to signal a condition variable?
 
+No.
+
 8) Does the condition have to be true when you signal a condition variable?
+
+No.
 
 
 
