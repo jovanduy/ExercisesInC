@@ -3,6 +3,8 @@
 
        Copyright 2014 Allen B. Downey
        License: Creative Commons Attribution-ShareAlike 3.0
+
+       Run time (without print statements): 2.349 seconds
 */
 
 #include <stdio.h>

@@ -1,4 +1,9 @@
-/*     This file contains an example program from The Little Book of
+/*     
+ *     This file adds synchronization (through the use of Semaphores)
+ *     to counter.c. Although the synchronization errors are fixed,
+ *     the runtime is now about 12s slower, taking 14.417 seconds.
+ *
+ *     This file contains an example program from The Little Book of
        Semaphores, available from Green Tea Press, greenteapress.com
 
        Copyright 2014 Allen B. Downey
