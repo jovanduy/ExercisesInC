@@ -155,12 +155,12 @@ void join_thread (pthread_t thread)
  */
 void child_code (Shared *shared)
 {
-    printf ("Starting child at counter %d\n", shared->counter);
-    int a = 1;
+    //printf ("Starting child at counter %d\n", shared->counter);
+    /*int a = 1;
     printf("%p\n", &a);
     printf("%p\n", &b);
     b += 10;
-    printf("%i", b);
+    printf("%i", b);*/
 
     while (1) {
 	    if (shared->counter >= shared->end) {
@@ -168,10 +168,10 @@ void child_code (Shared *shared)
 	    }
 	    shared->array[shared->counter]++;
 	    shared->counter++;
-
-	    if (shared->counter % 100000 == 0) {
-	        //printf ("%d\n", shared->counter);
-	    }
+	
+	    /*if (shared->counter % 100000 == 0) {
+	        printf ("%d\n", shared->counter);
+	    }*/
     }
 }
 
@@ -186,7 +186,7 @@ void *entry (void *arg)
 {
     Shared *shared = (Shared *) arg;
     child_code (shared);
-    printf ("Child done.\n");
+    //printf ("Child done.\n");
     pthread_exit (NULL);
 }
 
@@ -202,12 +202,12 @@ void check_array (Shared *shared)
 {
     int i, errors=0;
 
-    printf ("Checking...\n");
+    //printf ("Checking...\n");
 
     for (i=0; i<shared->end; i++) {
 	    if (shared->array[i] != 1) errors++;
     }
-    printf ("%d errors.\n", errors);
+    //printf ("%d errors.\n", errors);
 }
 
 /*  main
