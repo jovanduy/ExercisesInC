@@ -157,29 +157,20 @@ void join_thread (pthread_t thread)
  */
 void child_code (Shared *shared)
 {
-    if (sem_wait(shared->sem) != 0) {
-        perror_exit("sem_wait failed");
-    }
     printf ("Starting child at counter %d\n", shared->counter);
-    int a = 1;
-    printf("%p\n", &a);
-    printf("%p\n", &b);
-    b += 10;
-    printf("%i", b);
-
+  
     while (1) {
 	    if (shared->counter >= shared->end) {
 	        return;
 	    }
-	    shared->array[shared->counter]++;
+        sem_wait(shared->sem); 
+        shared->array[shared->counter]++;
 	    shared->counter++;
+	    sem_signal(shared->sem);
 
 	    if (shared->counter % 100000 == 0) {
 	        //printf ("%d\n", shared->counter);
 	    }
-    }
-    if (sem_signal(shared->sem) != 0) {
-        perror_exit("sem_post failed");
     }
 }
 
