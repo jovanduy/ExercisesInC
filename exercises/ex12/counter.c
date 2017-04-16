@@ -5,6 +5,8 @@
        License: Creative Commons Attribution-ShareAlike 3.0
 
        Run time (without print statements): 2.349 seconds
+       See counter_mutex.c for implementation without
+       synchronization errors.
 */
 
 #include <stdio.h>
