@@ -24,7 +24,7 @@ typedef struct {
 
 /* Iterator that frees every (word, val) entry). */
 void free_hash_table(gpointer key, gpointer value, gpointer user_data) {
-    char *word = (char *) key;
+    gchar *word = (gchar *) key;
     gint *val = (gint *) value;
     free (word);
     free(val);
