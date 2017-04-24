@@ -315,7 +315,7 @@ The kernel's most basic task is handling interrupts.
 
 2) When an interrupt occurs, what part of the hardware state is saved by hardware?
 
-The program counter
+The program counter, so the kernel knows where to resume.
 
 3) What is the difference between an interrupt and a context switch?
 
@@ -327,9 +327,17 @@ An interrupt is a halt in the normal flow of instruction execution, while a cont
 
 One possible event is a system call, such as a disk request, completing. Upon completion, there is an interrupt and the interrupt handler then changes the state of the process that called that system call from blocked to ready.
 
-5) Why might a scheduler want to give higher priority to an I/O bound process?
+5) Why might a scheduler want to give higher priority to an I/O bound process
+
+An I/O bound process might be interactive and therefore should have low response time for the user. Furthermore, once the process starts running again, it might only run for a very short amount of time before blocking again while waiting for more input (a process that will run for a short amount of time before blocking should be run first before processes that will take a longer time so that more requests can be made in a shorter amount of time).
 
 When I make French toast, I usually make a batch of 12 slices.  But my griddle only has room for 8 slices.  Each piece of toast has to cook for 5 minutes on each side.  How can I schedule 12 slices onto 8 "cores" to minimize the elapsed time to cook all 12 slices?  (Note: this question is not hypothetical; this is really how I make French toast.)
+
+- Cook 8 slices on one side for 5 minutes
+- Flip 4, remove the other 4, and add on the next uncooked 4 and cook for 5 minutes
+- Remove the 4 completely finished slices, flip the half cooked 4, add back on the other half cooked 4 and cook for 5 minutes
+
+In total this takes 3*5 = 15 minutes
 
 
 
@@ -346,7 +354,7 @@ Each thread has its own stack so that threads can call functions without interfe
 
 2) What does the `gcc flag -lpthread` do?
 
-The `-l` option allows you to compile with the Pthread library in `gcc`.
+The `-l` option allows you to compile with the Pthread library in `gcc`. This links your program with the Pthread library.
 
 3) What does the argument of `pthread_exit` do?
 
