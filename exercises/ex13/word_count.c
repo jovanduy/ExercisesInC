@@ -22,6 +22,19 @@ typedef struct {
     gchar *word;
 } Pair;
 
+/* Iterator that frees every (word, val) entry). */
+void free_hash_table(gpointer key, gpointer value, gpointer user_data) {
+    char *word = (char *) key;
+    gint *val = (gint *) value;
+    free (word);
+    free(val);
+}
+
+/* Iterator that frees every Pair. */
+void free_sequence(gpointer value, gpointer user_data) {
+    Pair *pair = (Pair *) value;
+    free(pair);
+}
 
 /* Compares two key-value pairs by frequency. */
 gint compare_pair (gpointer v1, gpointer v2, gpointer user_data)
@@ -75,6 +88,8 @@ void incr (GHashTable* hash, gchar *key)
     }
 }
 
+
+
 int main (int argc, char** argv)
 {
     gchar *filename;
@@ -92,6 +107,7 @@ int main (int argc, char** argv)
 	exit (-10);
     }
 
+
     /* string array is a (two-L) NULL terminated array of pointers to
        (one-L) NUL terminated strings */
     gchar **array;
@@ -108,9 +124,12 @@ int main (int argc, char** argv)
 	for (i=0; array[i] != NULL; i++) {
 	    incr(hash, array[i]);
 	}
+	
     }
+    
     fclose (fp);
-
+    g_strfreev(array);
+    
     // print the hash table
     // g_hash_table_foreach (hash,  (GHFunc) printor, "Word %s freq %d\n");
 
@@ -120,6 +139,9 @@ int main (int argc, char** argv)
 
     // iterate the sequence and print the pairs
     g_sequence_foreach (seq,  (GFunc) pair_printor, NULL);
+
+    g_hash_table_foreach(hash, (GHFunc) free_hash_table, NULL);
+    g_sequence_foreach(seq, (GFunc) free_sequence, NULL);
 
     // try (unsuccessfully) to free everything
     // (in a future exercise, we will fix the memory leaks)
